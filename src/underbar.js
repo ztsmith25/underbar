@@ -99,19 +99,31 @@
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
-    // var filteredArray = [];
-    // var itFunc;
+    var filteredArray = [], iterFunc;
+    if (arguments[2] == undefined) {
+      iterFunc = _.identity;
+    } else {
+      iterFunc = arguments[2];
+    }
+    var compArray = [];
+    _.each(array, function(element) {
+      if (_.indexOf(compArray, iterFunc(element)) === -1) {
+        compArray.push(iterFunc(element));
+        console.log(compArray);
+        filteredArray.push(element);
+      }
+    });
+
+    return filteredArray;
+    // var iteratorFunction, compArray = array;
     // if (arguments[2] == undefined) {
-    //   itFunc = _.identity;
+    //   iteratorFunction = _.identity;
     // } else {
-    //   itFunc = arguments[2];
+    //   iteratorFunction = arguments[2];
     // }
-    // _.each(array, function(element) {
-    //   if (!(itFunc(element) in filteredArray)) {
-    //     filteredArray.push(element);
-    //   }
+    // return _.filter(array, function(element) {
+    //   return (!(iteratorFunction(element) in compArray.slice(index, compArray.length)));
     // });
-    // return filteredArray;
   };
 
 
