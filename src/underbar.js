@@ -109,21 +109,10 @@
     _.each(array, function(element) {
       if (_.indexOf(compArray, iterFunc(element)) === -1) {
         compArray.push(iterFunc(element));
-        console.log(compArray);
         filteredArray.push(element);
       }
     });
-
     return filteredArray;
-    // var iteratorFunction, compArray = array;
-    // if (arguments[2] == undefined) {
-    //   iteratorFunction = _.identity;
-    // } else {
-    //   iteratorFunction = arguments[2];
-    // }
-    // return _.filter(array, function(element) {
-    //   return (!(iteratorFunction(element) in compArray.slice(index, compArray.length)));
-    // });
   };
 
 
