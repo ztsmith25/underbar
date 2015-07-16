@@ -311,24 +311,6 @@
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
-    // var memArray = [], ansArray = [];
-    // return function() {
-    //   var len = arguments.length, args = [], answer;
-    //   for(var i = 0; i < len; i++) {
-    //     args.push(arguments[i]);
-    //   }
-    //   if (_.indexOf(memArray, args) == -1) {
-    //     console.log(_.indexOf(memArray, args), memArray, args);
-    //     memArray.push(args);
-    //     answer = func.apply(this, args);
-    //     ansArray.push(answer);
-    //     console.log(args, memArray, ansArray);
-    //     return answer;
-    //   } else {
-    //     return ansArray[_.indexOf(memArray, args)];
-    //   }
-    // }
-
     var memObj = {};
     return function() {
       var args = [], answer;
