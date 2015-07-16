@@ -311,6 +311,39 @@
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
+    // var memArray = [], ansArray = [];
+    // return function() {
+    //   var len = arguments.length, args = [], answer;
+    //   for(var i = 0; i < len; i++) {
+    //     args.push(arguments[i]);
+    //   }
+    //   if (_.indexOf(memArray, args) == -1) {
+    //     console.log(_.indexOf(memArray, args), memArray, args);
+    //     memArray.push(args);
+    //     answer = func.apply(this, args);
+    //     ansArray.push(answer);
+    //     console.log(args, memArray, ansArray);
+    //     return answer;
+    //   } else {
+    //     return ansArray[_.indexOf(memArray, args)];
+    //   }
+    // }
+
+    var memObj = {};
+    return function() {
+      var args = [], answer;
+      for(var i = 0; i < arguments.length; i++) {
+        args.push(arguments[i]);
+      }
+      if (args in memObj) {
+        return memObj[args.toString()];
+      } else {
+        answer = func.apply(this, args);
+        memObj[args.toString()] = answer;
+        return answer;
+      }
+    }
+
   };
 
   // Delays a function for the given number of milliseconds, and then calls
@@ -320,6 +353,11 @@
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
   _.delay = function(func, wait) {
+    var args = [];
+    for(var i = 2; i < arguments.length; i++) {
+      args.push(arguments[i]);
+    }
+    return setTimeout(function() {return func.apply(this, args); }, wait);
   };
 
 
