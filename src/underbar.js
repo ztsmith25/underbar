@@ -41,7 +41,7 @@
     if (n > array.length) {
       n = array.length;
     }
-    return n === undefined ? array[array.length - 1] : array.slice(array.length - n, array.length);
+    return n === undefined ? array[array.length - 1] : array.slice(Math.max(0, array.length - n));
   };
 
   // Call iterator(value, key, collection) for each element of collection.
@@ -379,6 +379,15 @@
   // Calls the method named by functionOrKey on each value in the list.
   // Note: You will need to learn a bit about .apply to complete this.
   _.invoke = function(collection, functionOrKey, args) {
+    var argsList = [];
+    for(var i = 2; i < arguments.length; i++) {
+      args.push(arguments[i]);
+    }
+    return (_.map(collection, function(item){
+      argsList.unshift(item);
+      functionOrKey.apply(this, argsList);
+      argsList.shift(item);
+    }))
   };
 
   // Sort the object's values by a criterion produced by an iterator.
