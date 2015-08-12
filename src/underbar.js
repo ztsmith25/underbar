@@ -41,7 +41,7 @@
     if (n > array.length) {
       n = array.length;
     }
-    return n === undefined ? array[array.length - 1] : array.slice(Math.max(0, array.length - n));
+    return n === undefined ? array[array.length - 1] : array.slice(Math.max(0, array.length - n), array.length);
   };
 
   // Call iterator(value, key, collection) for each element of collection.
