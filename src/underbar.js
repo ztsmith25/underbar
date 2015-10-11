@@ -93,14 +93,14 @@
   _.reject = function(collection, test) {
     // TIP: see if you can re-use _.filter() here, without simply
     // copying code in and modifying it
-    var falseTest = function (element) {return !(test(element))};
-    return _.filter(collection, falseTest)
+    var falseTest = function (element) {return !(test(element));};
+    return _.filter(collection, falseTest);
   };
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
     var filteredArray = [], iterFunc;
-    if (arguments[2] == undefined) {
+    if (arguments[2] === undefined) {
       iterFunc = _.identity;
     } else {
       iterFunc = arguments[2];
@@ -214,19 +214,24 @@
   // provided, provide a default one
   _.some = function(collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
-    if (collection === [] || collection === {}) {
-      return false;
-    }
     if (arguments.length < 2) {
       var iterator = _.identity;
     }
-    return _.reduce(collection, function(prev, currentVal) {
-      if (prev || iterator(currentVal)) {
-        return true;
-      } else {
-        return false;
-      }
-    }, false);
+    return !_.every(collection, function(item){return !iterator(item)});
+
+  //   if (collection === [] || collection === {}) {
+  //     return false;
+  //   }
+  //   if (arguments.length < 2) {
+  //     var iterator = _.identity;
+  //   }
+  //   return _.reduce(collection, function(prev, currentVal) {
+  //     if (prev || iterator(currentVal)) {
+  //       return true;
+  //     } else {
+  //       return false;
+  //     }
+  //   }, false);
   };
 
 
