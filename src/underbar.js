@@ -384,15 +384,15 @@
   // Calls the method named by functionOrKey on each value in the list.
   // Note: You will need to learn a bit about .apply to complete this.
   _.invoke = function(collection, functionOrKey, args) {
-    var argsList = [];
-    for(var i = 2; i < arguments.length; i++) {
-      args.push(arguments[i]);
+    if (typeof functionOrKey === 'function') {
+      return _.map(collection, function(element) {
+        return functionOrKey.apply(element, args);
+      });
+    } else {
+      return _.map(collection, function(element) {
+        return element[functionOrKey](args);
+      });
     }
-    return (_.map(collection, function(item){
-      argsList.unshift(item);
-      functionOrKey.apply(this, argsList);
-      argsList.shift(item);
-    }));
   };
 
   // Sort the object's values by a criterion produced by an iterator.
