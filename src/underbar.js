@@ -93,13 +93,16 @@
   _.reject = function(collection, test) {
     // TIP: see if you can re-use _.filter() here, without simply
     // copying code in and modifying it
-    var falseTest = function (element) {return !(test(element));};
+    var falseTest = function(element) {
+      return !(test(element));
+    };
     return _.filter(collection, falseTest);
   };
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
-    var filteredArray = [], iterFunc;
+    var filteredArray = [],
+      iterFunc;
     if (arguments[2] === undefined) {
       iterFunc = _.identity;
     } else {
@@ -141,7 +144,7 @@
     // TIP: map is really handy when you want to transform an array of
     // values into a new array of values. _.pluck() is solved for you
     // as an example of this.
-    return _.map(collection, function(item){
+    return _.map(collection, function(item) {
       return item[key];
     });
   };
@@ -217,21 +220,23 @@
     if (arguments.length < 2) {
       var iterator = _.identity;
     }
-    return !_.every(collection, function(item){return !iterator(item)});
+    return !_.every(collection, function(item) {
+      return !iterator(item)
+    });
 
-  //   if (collection === [] || collection === {}) {
-  //     return false;
-  //   }
-  //   if (arguments.length < 2) {
-  //     var iterator = _.identity;
-  //   }
-  //   return _.reduce(collection, function(prev, currentVal) {
-  //     if (prev || iterator(currentVal)) {
-  //       return true;
-  //     } else {
-  //       return false;
-  //     }
-  //   }, false);
+    //   if (collection === [] || collection === {}) {
+    //     return false;
+    //   }
+    //   if (arguments.length < 2) {
+    //     var iterator = _.identity;
+    //   }
+    //   return _.reduce(collection, function(prev, currentVal) {
+    //     if (prev || iterator(currentVal)) {
+    //       return true;
+    //     } else {
+    //       return false;
+    //     }
+    //   }, false);
   };
 
 
@@ -254,8 +259,8 @@
   //     bla: "even more stuff"
   //   }); // obj1 now contains key1, key2, key3 and bla
   _.extend = function(obj) {
-    for(var i = 1; i < arguments.length; i++){
-      for(var key in arguments[i]) {
+    for (var i = 1; i < arguments.length; i++) {
+      for (var key in arguments[i]) {
         obj[key] = arguments[i][key];
       }
     }
@@ -265,8 +270,8 @@
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
   _.defaults = function(obj) {
-    for(var i = 1; i < arguments.length; i++){
-      for(var key in arguments[i]) {
+    for (var i = 1; i < arguments.length; i++) {
+      for (var key in arguments[i]) {
         if (!(key in obj)) {
           obj[key] = arguments[i][key];
         }
@@ -318,8 +323,9 @@
   _.memoize = function(func) {
     var memObj = {};
     return function() {
-      var args = [], answer;
-      for(var i = 0; i < arguments.length; i++) {
+      var args = [],
+        answer;
+      for (var i = 0; i < arguments.length; i++) {
         args.push(arguments[i]);
       }
       if (args in memObj) {
@@ -341,10 +347,12 @@
   // call someFunction('a', 'b') after 500ms
   _.delay = function(func, wait) {
     var args = [];
-    for(var i = 2; i < arguments.length; i++) {
+    for (var i = 2; i < arguments.length; i++) {
       args.push(arguments[i]);
     }
-    return setTimeout(function() {return func.apply(this, args); }, wait);
+    return setTimeout(function() {
+      return func.apply(this, args);
+    }, wait);
   };
 
 
@@ -359,11 +367,14 @@
   // input array. For a tip on how to make a copy of an array, see:
   // http://mdn.io/Array.prototype.slice
   _.shuffle = function(array) {
-    var len = array.length, coppiedArray = array.slice(0, array.length), shuffledArray = [], shuffleNum,
-        shuffleFunc = function(min, max) {
-          return Math.floor(Math.random() * (max - min)) + min;
-        };
-    for(var i = 0; i < len; i++) {
+    var len = array.length,
+      coppiedArray = array.slice(0, array.length),
+      shuffledArray = [],
+      shuffleNum,
+      shuffleFunc = function(min, max) {
+        return Math.floor(Math.random() * (max - min)) + min;
+      };
+    for (var i = 0; i < len; i++) {
       shuffleNum = shuffleFunc(0, coppiedArray.length);
       shuffledArray.push(coppiedArray[shuffleNum]);
       coppiedArray.splice(shuffleNum, 1);
@@ -454,14 +465,15 @@
   // Takes an arbitrary number of arrays and produces an array that contains
   // every item shared between all the passed-in arrays.
   _.intersection = function() {
-    var args = Array.prototype.slice.call(arguments), intersect = [];
-    if(args.length === 1){
+    var args = Array.prototype.slice.call(arguments),
+      intersect = [];
+    if (args.length === 1) {
       return args[0];
     }
     var firstArr = args.shift();
-    while(args.length > 0){
-      for (var i = 0; i < firstArr.length; i++){
-        if(_.contains(args[0], firstArr[i])){
+    while (args.length > 0) {
+      for (var i = 0; i < firstArr.length; i++) {
+        if (_.contains(args[0], firstArr[i])) {
           intersect.push(firstArr[i]);
         }
       }
@@ -475,8 +487,8 @@
   _.difference = function(array) {
     var args = Array.prototype.slice.call(arguments);
     args.shift();
-    for(var i = 0; i < args.length; i++){
-      for(var j = 0; j < array.length; j++){
+    for (var i = 0; i < args.length; i++) {
+      for (var j = 0; j < array.length; j++) {
         if (_.contains(args[i], array[j])) { // can optimize with _.flatten
           array.splice(j, 1);
         }
@@ -491,12 +503,14 @@
   //
   // Note: This is difficult! It may take a while to implement.
 
-_.delay = function(func, wait) {
+  _.delay = function(func, wait) {
     var args = [];
-    for(var i = 2; i < arguments.length; i++) {
+    for (var i = 2; i < arguments.length; i++) {
       args.push(arguments[i]);
     }
-    return setTimeout(function() {return func.apply(this, args); }, wait);
+    return setTimeout(function() {
+      return func.apply(this, args);
+    }, wait);
   };
 
   _.throttle = function(func, wait) {
@@ -505,15 +519,15 @@ _.delay = function(func, wait) {
     args.shift();
     var timer = wait;
     var timerFunc = function() {
-      setInterval(function(){
-        if(timer < wait){
+      setInterval(function() {
+        if (timer < wait) {
           timer += 25;
         }
       }, 25);
     };
     timerFunc();
     return function() {
-      if(timer >= wait){
+      if (timer >= wait) {
         timer = 0;
         return func.apply(this, args);
       }
