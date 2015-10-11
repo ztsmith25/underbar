@@ -329,7 +329,7 @@
         memObj[args.toString()] = answer;
         return answer;
       }
-    }
+    };
 
   };
 
@@ -366,7 +366,7 @@
     for(var i = 0; i < len; i++) {
       shuffleNum = shuffleFunc(0, coppiedArray.length);
       shuffledArray.push(coppiedArray[shuffleNum]);
-      coppiedArray.splice(shuffleNum, 1)
+      coppiedArray.splice(shuffleNum, 1);
     }
     return shuffledArray;
   };
@@ -392,7 +392,7 @@
       argsList.unshift(item);
       functionOrKey.apply(this, argsList);
       argsList.shift(item);
-    }))
+    }));
   };
 
   // Sort the object's values by a criterion produced by an iterator.
