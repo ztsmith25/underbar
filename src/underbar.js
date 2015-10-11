@@ -490,6 +490,33 @@
   // on this function.
   //
   // Note: This is difficult! It may take a while to implement.
+
+_.delay = function(func, wait) {
+    var args = [];
+    for(var i = 2; i < arguments.length; i++) {
+      args.push(arguments[i]);
+    }
+    return setTimeout(function() {return func.apply(this, args); }, wait);
+  };
+
   _.throttle = function(func, wait) {
+    var args = Array.prototype.slice.call(arguments);
+    args.shift();
+    args.shift();
+    var timer = wait;
+    var timerFunc = function() {
+      setInterval(function(){
+        if(timer < wait){
+          timer += 25;
+        }
+      }, 25);
+    };
+    timerFunc();
+    return function() {
+      if(timer >= wait){
+        timer = 0;
+        return func.apply(this, args);
+      }
+    };
   };
 }());
